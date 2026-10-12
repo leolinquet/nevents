@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { ChevronRightIcon, PlusSquareIcon, UserIcon } from '../components/Icons.jsx'
+import { currentUser } from '../data/user.js'
 
 export default function Start() {
   return (
     <div className="screen">
       <main className="screen-body start">
         <div className="home-top">
-          <p className="eyebrow">UNL Campus Events</p>
+          <p className="eyebrow">Hi {currentUser.firstName} · UNL Campus Events</p>
           <button className="avatar-btn" aria-label="Profile">
             <UserIcon />
           </button>
