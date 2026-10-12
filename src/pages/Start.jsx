@@ -8,9 +8,9 @@ export default function Start() {
       <main className="screen-body start">
         <div className="home-top">
           <p className="eyebrow">Hi {currentUser.firstName} · UNL Campus Events</p>
-          <button className="avatar-btn" aria-label="Profile">
+          <Link to="/profile" className="avatar-btn" aria-label="Profile">
             <UserIcon />
-          </button>
+          </Link>
         </div>
         <h1 className="display">What brings you here today?</h1>
         <p className="muted">Pick one. You can switch anytime from the bottom bar.</p>
