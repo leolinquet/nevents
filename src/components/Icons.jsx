@@ -40,3 +40,9 @@ export const CheckCircleIcon = (p) => (
     <path d="M8 12.5l3 3 5-6" />
   </svg>
 )
+export const UserIcon = (p) => (
+  <svg viewBox="0 0 24 24" width="22" height="22" {...base} {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+  </svg>
+)

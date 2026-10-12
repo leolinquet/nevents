@@ -73,6 +73,8 @@ input, select { font: inherit; color: inherit; }
 .start-card:hover { border-color: var(--accent); }
 .start-title { font-family: var(--serif); font-size: 22px; margin-bottom: 6px; }
 .start-card svg { flex-shrink: 0; }
+.home-top { display: flex; justify-content: space-between; align-items: center; }
+.avatar-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--accent); display: flex; align-items: center; justify-content: center; }
 
 /* ---------- discover ---------- */
 .page-header { margin-bottom: 16px; }
