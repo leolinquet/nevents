@@ -1,16 +1,36 @@
-# React + Vite
+# NEVENTS
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Functional mobile prototype of NEVENTS, a campus events app for UNL students. Built with React and Vite for CSCE 378.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 20 or newer (https://nodejs.org)
+- Any modern browser (tested in Chrome)
 
-## React Compiler
+## Run it
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+Then open the URL printed in the terminal (usually http://localhost:5173).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+On a laptop the app shows inside a phone-sized frame. Refreshing the page resets everything (saved events, posts).
+
+## Supported tasks
+
+1. Find an event happening soon on City Campus and save it.
+2. Post an event as a student org officer and submit it for review.
+
+## Project structure
+
+```
+src/
+  components/   shared UI (phone frame, tab bar, event card, filters sheet)
+  pages/        one file per screen
+  data/         fake events and filter logic
+  state/        app-wide state (saved events, filters, posts)
+```
+
+The app pretends it is always Thursday, 2:04 PM so the event times stay consistent.
