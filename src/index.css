@@ -131,3 +131,8 @@ input, select { font: inherit; color: inherit; }
 .success-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: flex; align-items: center; justify-content: center; margin: 32px 0 16px; }
 .summary { padding: 15px 17px; margin: 18px 0 14px; }
 .summary .chips { margin-top: 10px; }
+
+/* ---------- profile ---------- */
+.profile-head { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+.avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--serif); font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.profile-name { font-size: 26px; margin: 0 0 4px; }
