@@ -136,3 +136,5 @@ input, select { font: inherit; color: inherit; }
 .profile-head { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
 .avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--serif); font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .profile-name { font-size: 26px; margin: 0 0 4px; }
+.club-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 17px; }
+.empty-card { padding: 15px 17px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
