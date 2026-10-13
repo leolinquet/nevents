@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { ChevronRightIcon, PlusSquareIcon, UserIcon } from '../components/Icons.jsx'
+import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon } from '../components/Icons.jsx'
 import { currentUser } from '../data/user.js'
+import { useApp } from '../state/AppContext.jsx'
 
 export default function Start() {
+  const { savedIds } = useApp()
   return (
     <div className="screen">
       <main className="screen-body start">
@@ -31,6 +33,16 @@ export default function Start() {
             <PlusSquareIcon className="accent" />
           </Link>
         </div>
+        <Link to="/saved" className="card shortcut-card">
+          <BookmarkIcon className="accent" />
+          <div className="shortcut-text">
+            <strong>Saved events</strong>
+            <p className="muted small">
+              {savedIds.length} {savedIds.length === 1 ? 'event' : 'events'} you're planning to go to
+            </p>
+          </div>
+          <ChevronRightIcon className="muted" />
+        </Link>
       </main>
     </div>
   )
