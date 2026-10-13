@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon } from '../components/Icons.jsx'
+import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon, BellIcon } from '../components/Icons.jsx'
 import { currentUser } from '../data/user.js'
 import { useApp } from '../state/AppContext.jsx'
 
@@ -10,9 +10,14 @@ export default function Start() {
       <main className="screen-body start">
         <div className="home-top">
           <p className="eyebrow">Hi {currentUser.firstName} · UNL Campus Events</p>
-          <Link to="/profile" className="avatar-btn" aria-label="Profile">
-            <UserIcon />
-          </Link>
+          <div className="home-actions">
+            <Link to="/notifications" className="avatar-btn" aria-label="Notifications">
+              <BellIcon />
+            </Link>
+            <Link to="/profile" className="avatar-btn" aria-label="Profile">
+              <UserIcon />
+            </Link>
+          </div>
         </div>
         <h1 className="display">What brings you here today?</h1>
         <p className="muted">Pick one. You can switch anytime from the bottom bar.</p>

@@ -78,6 +78,9 @@ input, select { font: inherit; color: inherit; }
 .shortcut-card { display: flex; align-items: center; gap: 14px; padding: 14px 17px; margin-top: 14px; }
 .shortcut-card:hover { border-color: var(--accent); }
 .shortcut-text { flex: 1; }
+.home-actions { display: flex; gap: 8px; }
+.avatar-btn:focus:not(:focus-visible) { outline: none; }
+
 
 /* ---------- discover ---------- */
 .page-header { margin-bottom: 16px; }
@@ -141,3 +144,11 @@ input, select { font: inherit; color: inherit; }
 .profile-name { font-size: 26px; margin: 0 0 4px; }
 .club-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 17px; }
 .empty-card { padding: 15px 17px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+
+/* ---------- notifications ---------- */
+.notif-card { padding: 14px 17px; }
+.notif-card:hover { border-color: var(--accent); }
+.notif-card.unread { border-left: 3px solid var(--accent); }
+.notif-card p { margin-top: 4px; }
+.notif-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.notif-top .tiny { margin-top: 0; flex-shrink: 0; }

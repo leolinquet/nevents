@@ -7,6 +7,7 @@ import Saved from './pages/Saved.jsx'
 import PostEvent from './pages/PostEvent.jsx'
 import SentForReview from './pages/SentForReview.jsx'
 import Profile from './pages/Profile.jsx'
+import Notifications from './pages/Notifications.jsx'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/post/sent/:id" element={<SentForReview />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
     </PhoneFrame>
   )
