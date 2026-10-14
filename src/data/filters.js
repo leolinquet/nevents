@@ -8,6 +8,12 @@ export const DEFAULT_FILTERS = {
   freeOnly: false,
 }
 
+export const WHEN_OPTIONS = [
+  { value: 'next2h', label: 'Next 2 hours' },
+  { value: 'today', label: 'Today' },
+  { value: 'week', label: 'This week' },
+]
+
 export function applyFilters(events, f) {
   const filtered = events.filter((e) => {
     const start = toMinutes(e.start)
