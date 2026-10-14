@@ -73,6 +73,14 @@ input, select { font: inherit; color: inherit; }
 .start-card:hover { border-color: var(--accent); }
 .start-title { font-family: var(--serif); font-size: 22px; margin-bottom: 6px; }
 .start-card svg { flex-shrink: 0; }
+.home-top { display: flex; justify-content: space-between; align-items: center; }
+.avatar-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--accent); display: flex; align-items: center; justify-content: center; }
+.shortcut-card { display: flex; align-items: center; gap: 14px; padding: 14px 17px; margin-top: 14px; }
+.shortcut-card:hover { border-color: var(--accent); }
+.shortcut-text { flex: 1; }
+.home-actions { display: flex; gap: 8px; }
+.avatar-btn:focus:not(:focus-visible) { outline: none; }
+
 
 /* ---------- discover ---------- */
 .page-header { margin-bottom: 16px; }
@@ -129,3 +137,18 @@ input, select { font: inherit; color: inherit; }
 .success-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: flex; align-items: center; justify-content: center; margin: 32px 0 16px; }
 .summary { padding: 15px 17px; margin: 18px 0 14px; }
 .summary .chips { margin-top: 10px; }
+
+/* ---------- profile ---------- */
+.profile-head { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+.avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--serif); font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.profile-name { font-size: 26px; margin: 0 0 4px; }
+.club-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 17px; }
+.empty-card { padding: 15px 17px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+
+/* ---------- notifications ---------- */
+.notif-card { padding: 14px 17px; }
+.notif-card:hover { border-color: var(--accent); }
+.notif-card.unread { border-left: 3px solid var(--accent); }
+.notif-card p { margin-top: 4px; }
+.notif-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.notif-top .tiny { margin-top: 0; flex-shrink: 0; }
