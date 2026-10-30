@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom'
 import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon, BellIcon } from '../components/Icons.jsx'
 import { currentUser } from '../data/user.js'
 import { useApp } from '../state/AppContext.jsx'
+import Screen from '../components/Screen.jsx'
 
 export default function Start() {
   const { savedIds } = useApp()
   return (
-    <div className="screen">
-      <main className="screen-body start">
+    <Screen>
+      <div className="start">
         <div className="home-top">
           <p className="eyebrow">Hi {currentUser.firstName} · UNL Campus Events</p>
           <div className="home-actions">
@@ -48,7 +49,7 @@ export default function Start() {
           </div>
           <ChevronRightIcon className="muted" />
         </Link>
-      </main>
-    </div>
+      </div>
+    </Screen>
   )
 }
