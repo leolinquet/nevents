@@ -52,3 +52,10 @@ export const BellIcon = (p) => (
     <path d="M10 20a2 2 0 0 0 4 0" />
   </svg>
 )
+export const HomeIcon = (p) => (
+  <svg viewBox="0 0 24 24" width="22" height="22" {...base} {...p}>
+    <path d="M3 10.5L12 3l9 7.5" />
+    <path d="M5 9.5V21h14V9.5" />
+    <path d="M10 21v-6h4v6" />
+  </svg>
+)
