@@ -2,12 +2,16 @@ import { Link } from 'react-router-dom'
 import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon, BellIcon } from '../components/Icons.jsx'
 import { currentUser } from '../data/user.js'
 import { useApp } from '../state/AppContext.jsx'
+import Screen from '../components/Screen.jsx'
+import { sortByTime, dayLabel, startTime } from '../data/events.js'
 
 export default function Start() {
-  const { savedIds } = useApp()
+  const { events, savedIds } = useApp()
+  const nextSaved = sortByTime(events.filter((e) => savedIds.includes(e.id)))[0]
+  const verifiedClub = currentUser.clubs.find((club) => club.verified)
   return (
-    <div className="screen">
-      <main className="screen-body start">
+    <Screen>
+      <div className="start">
         <div className="home-top">
           <p className="eyebrow">Hi {currentUser.firstName} · UNL Campus Events</p>
           <div className="home-actions">
@@ -33,7 +37,15 @@ export default function Start() {
           <Link to="/post" className="card start-card">
             <div>
               <h2 className="start-title">Post an event</h2>
-              <p className="muted">For student org officers who want to reach students.</p>
+              <p className="muted">Student Involvement reviews every post before it goes live.</p>
+              {verifiedClub ? (
+                <p className="start-status">
+                  Posting as {verifiedClub.name}
+                  <span className="badge badge-ok">Verified officer</span>
+                </p>
+              ) : (
+                <p className="start-status muted">Only verified club officers can post</p>
+              )}
             </div>
             <PlusSquareIcon className="accent" />
           </Link>
@@ -42,13 +54,21 @@ export default function Start() {
           <BookmarkIcon className="accent" />
           <div className="shortcut-text">
             <strong>Saved events</strong>
-            <p className="muted small">
-              {savedIds.length} {savedIds.length === 1 ? 'event' : 'events'} you're planning to go to
-            </p>
+            {nextSaved ? (
+              <>
+                <p className="shortcut-next">{nextSaved.title}</p>
+                <p className="muted small">
+                  <span className="accent">{dayLabel(nextSaved)} · {startTime(nextSaved)}</span>
+                  {' · '}{savedIds.length} saved
+                </p>
+              </>
+            ) : (
+              <p className="muted small">Nothing saved yet. Tap Save on any event to keep it here.</p>
+            )}
           </div>
           <ChevronRightIcon className="muted" />
         </Link>
-      </main>
-    </div>
+      </div>
+    </Screen>
   )
 }

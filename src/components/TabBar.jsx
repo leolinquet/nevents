@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom'
-import { CompassIcon, BookmarkIcon, PlusSquareIcon } from './Icons.jsx'
+import { HomeIcon, CompassIcon, BookmarkIcon, PlusSquareIcon } from './Icons.jsx'
 
 const tabs = [
+  { to: '/', label: 'Home', Icon: HomeIcon },
   { to: '/discover', label: 'Discover', Icon: CompassIcon },
   { to: '/saved', label: 'Saved', Icon: BookmarkIcon },
   { to: '/post', label: 'Post', Icon: PlusSquareIcon },
@@ -14,6 +15,7 @@ export default function TabBar({ active }) {
         <NavLink
           key={to}
           to={to}
+          end={to === '/'}
           className={({ isActive }) => `tab ${isActive || active === to ? 'tab-active' : ''}`}
         >
           <Icon />

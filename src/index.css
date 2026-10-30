@@ -254,7 +254,7 @@ input, select {
 
 /* ---------- start ---------- */
 .start {
-    padding-top: 72px;
+    padding-top: 24px;
 }
 
 .start-options {
@@ -283,6 +283,21 @@ input, select {
 
 .start-card svg {
     flex-shrink: 0;
+}
+
+.start-status {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.shortcut-next {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 4px 0 2px;
 }
 
 .home-top {
