@@ -6,6 +6,7 @@ import Screen from '../components/Screen.jsx'
 
 export default function Start() {
   const { savedIds } = useApp()
+  const verifiedClub = currentUser.clubs.find((club) => club.verified)
   return (
     <Screen>
       <div className="start">
@@ -34,7 +35,15 @@ export default function Start() {
           <Link to="/post" className="card start-card">
             <div>
               <h2 className="start-title">Post an event</h2>
-              <p className="muted">For student org officers who want to reach students.</p>
+              <p className="muted">Student Involvement reviews every post before it goes live.</p>
+              {verifiedClub ? (
+                <p className="start-status">
+                  Posting as {verifiedClub.name}
+                  <span className="badge badge-ok">Verified officer</span>
+                </p>
+              ) : (
+                <p className="start-status muted">Only verified club officers can post</p>
+              )}
             </div>
             <PlusSquareIcon className="accent" />
           </Link>
