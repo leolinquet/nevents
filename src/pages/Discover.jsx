@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Screen from '../components/Screen.jsx'
 import EventCard from '../components/EventCard.jsx'
 import FiltersSheet from '../components/FiltersSheet.jsx'
-import { SlidersIcon } from '../components/Icons.jsx'
+import { SlidersIcon, BookmarkIcon } from '../components/Icons.jsx'
 import { useApp } from '../state/AppContext.jsx'
 import { applyFilters, DEFAULT_FILTERS, WHEN_OPTIONS } from '../data/filters.js'
 import { NOW, DAY_NAMES } from '../data/events.js'
@@ -14,8 +15,21 @@ const clock = (minutes) => {
 
 // Owner: Darius
 export default function Discover() {
-  const { events, filters, setFilters } = useApp()
+  const { events, filters, setFilters, isSaved, toggleSaved } = useApp()
   const [showFilters, setShowFilters] = useState(false)
+  const [toast, setToast] = useState(null)
+
+  useEffect(() => {
+    if (!toast) return
+    const timer = setTimeout(() => setToast(null), 3000)
+    return () => clearTimeout(timer)
+  }, [toast])
+
+  const handleSave = (event) => {
+    const wasSaved = isSaved(event.id)
+    toggleSaved(event.id)
+    setToast({ id: event.id, saved: !wasSaved, title: event.title })
+  }
 
   const results = applyFilters(events, filters)
   const whenLabel = WHEN_OPTIONS.find((o) => o.value === filters.when)?.label
@@ -28,7 +42,20 @@ export default function Discover() {
   ].filter(Boolean)
 
   return (
-    <Screen>
+    <Screen
+      footer={
+        toast && (
+          <div className="callout" role="status">
+            <strong>{toast.saved ? 'Saved' : 'Removed from saved'}</strong>
+            <br />
+            {toast.title} ·{' '}
+            <Link to="/saved" className="link-btn">
+              View saved
+            </Link>
+          </div>
+        )
+      }
+    >
       <header className="page-header">
         <p className="eyebrow">
           {DAY_NAMES[NOW.day]} · {clock(NOW.minutes)}
@@ -60,9 +87,28 @@ export default function Discover() {
         </div>
       ) : (
         <div className="list" style={{ marginTop: 16 }}>
-          {results.map((event) => (
-            <EventCard key={event.id} event={event} variant="discover" />
-          ))}
+          {results.map((event) => {
+            const saved = isSaved(event.id)
+            return (
+              <div key={event.id} style={{ position: 'relative' }}>
+                <EventCard event={event} variant="discover" />
+                <button
+                  onClick={() => handleSave(event)}
+                  aria-label={saved ? `Remove ${event.title} from saved` : `Save ${event.title}`}
+                  aria-pressed={saved}
+                  style={{
+                    position: 'absolute',
+                    right: 10,
+                    bottom: 8,
+                    padding: 8,
+                    color: saved ? 'var(--accent)' : 'var(--muted)',
+                  }}
+                >
+                  <BookmarkIcon fill={saved ? 'currentColor' : 'none'} />
+                </button>
+              </div>
+            )
+          })}
         </div>
       )}
 
