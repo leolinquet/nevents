@@ -3,9 +3,11 @@ import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon, BellIcon } fr
 import { currentUser } from '../data/user.js'
 import { useApp } from '../state/AppContext.jsx'
 import Screen from '../components/Screen.jsx'
+import { sortByTime, dayLabel, startTime } from '../data/events.js'
 
 export default function Start() {
-  const { savedIds } = useApp()
+  const { events, savedIds } = useApp()
+  const nextSaved = sortByTime(events.filter((e) => savedIds.includes(e.id)))[0]
   const verifiedClub = currentUser.clubs.find((club) => club.verified)
   return (
     <Screen>
@@ -52,9 +54,17 @@ export default function Start() {
           <BookmarkIcon className="accent" />
           <div className="shortcut-text">
             <strong>Saved events</strong>
-            <p className="muted small">
-              {savedIds.length} {savedIds.length === 1 ? 'event' : 'events'} you're planning to go to
-            </p>
+            {nextSaved ? (
+              <>
+                <p className="shortcut-next">{nextSaved.title}</p>
+                <p className="muted small">
+                  <span className="accent">{dayLabel(nextSaved)} · {startTime(nextSaved)}</span>
+                  {' · '}{savedIds.length} saved
+                </p>
+              </>
+            ) : (
+              <p className="muted small">Nothing saved yet. Tap Save on any event to keep it here.</p>
+            )}
           </div>
           <ChevronRightIcon className="muted" />
         </Link>

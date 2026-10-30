@@ -294,6 +294,12 @@ input, select {
     font-weight: 600;
 }
 
+.shortcut-next {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 4px 0 2px;
+}
+
 .home-top {
     display: flex;
     justify-content: space-between;
