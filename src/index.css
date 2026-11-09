@@ -254,7 +254,7 @@ input, select {
 
 /* ---------- start ---------- */
 .start {
-    padding-top: 24px;
+    padding-top: 0;
 }
 
 .start-options {
@@ -304,6 +304,11 @@ input, select {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: -12px;
+}
+
+.home-top + .display {
+    margin-top: 0;
 }
 
 .avatar-btn {
