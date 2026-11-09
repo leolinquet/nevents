@@ -21,10 +21,13 @@ export function AppProvider({ children }) {
     return newPost.id
   }
 
+  const withdrawPost = (id) =>
+    setPendingPosts((p) => p.filter((post) => post.id !== id))
+
   const value = {
     events, savedIds, isSaved, toggleSaved,
     filters, setFilters,
-    pendingPosts, submitPost,
+    pendingPosts, submitPost, withdrawPost,
   }
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

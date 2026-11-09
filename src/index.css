@@ -712,6 +712,32 @@ input, select {
     align-items: flex-start;
 }
 
+.post-row {
+    padding: 15px 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+}
+
+.post-row-top {
+    display: flex;
+    align-self: stretch;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.confirm-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.link-btn.quiet {
+    color: var(--muted);
+}
+
 /* ---------- notifications ---------- */
 .notif-card {
     padding: 14px 17px;

@@ -11,8 +11,8 @@ export const notifications = [
     },
     {
         id: 'n2',
-        title: 'New events near you',
-        body: '3 events are happening on City Campus in the next 2 hours.',
+        title: "You're a verified officer of Husker Coding Club",
+        body: 'You can now post events for Husker Coding Club from the Post tab.',
         time: '2h ago',
         link: '/discover',
         unread: true,
