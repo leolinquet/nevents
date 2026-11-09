@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ChevronRightIcon, PlusSquareIcon, UserIcon, BookmarkIcon, BellIcon } from '../components/Icons.jsx'
+import { ChevronRightIcon, CompassIcon, PlusSquareIcon, UserIcon, BookmarkIcon, BellIcon } from '../components/Icons.jsx'
 import { currentUser } from '../data/user.js'
 import { useApp } from '../state/AppContext.jsx'
 import Screen from '../components/Screen.jsx'
@@ -32,7 +32,7 @@ export default function Start() {
               <h2 className="start-title">Find something to do</h2>
               <p className="muted">See what's happening on campus soon and close to you.</p>
             </div>
-            <ChevronRightIcon className="accent" />
+            <CompassIcon className="accent" />
           </Link>
           <Link to="/post" className="card start-card">
             <div>
