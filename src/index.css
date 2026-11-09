@@ -153,11 +153,11 @@ input, select {
 }
 
 .small {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .tiny {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 6px;
 }
 
@@ -222,7 +222,7 @@ input, select {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .event-time {
@@ -240,7 +240,7 @@ input, select {
     margin-left: auto;
     background: var(--badge);
     color: var(--muted);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     padding: 2px 8px;
     border-radius: 4px;
@@ -290,7 +290,7 @@ input, select {
     align-items: center;
     flex-wrap: wrap;
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
 }
 
