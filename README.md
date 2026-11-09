@@ -9,8 +9,8 @@ Functional mobile prototype of NEVENTS, a campus events app for UNL students. Bu
 
 ## Core tasks
 
-1. Find an event happening soon on City Campus and save it.
-2. Filter events to show only free events on City Campus.
+1. Find an event that fits a free block this afternoon (until 3:30 PM, near Avery Hall) and save it.
+2. Find a free academic event later this week, not today, and save it.
 3. Post an event as a verified club officer and submit it for review.
 
 All three tasks start on the Home screen. Every button and tab leads to a real screen, so wrong choices can be explored and undone.
@@ -32,10 +32,12 @@ Open the URL printed in the terminal (usually http://localhost:5173). On a lapto
 
 - No backend. Events are fake data in `src/data/events.js` and everything lives in memory. Refreshing the page resets saved events and posts.
 - The app pretends it is always Thursday, 2:04 PM so event times stay consistent.
-- No real login. You are signed in as a fake student who is a verified officer of Soccer Club.
-- Review is simulated. Submitted events show as "Pending review" on the Profile page and never appear in Discover.
+- No real login. You are signed in as a fake student who is a verified officer of Husker Coding Club.
+- Review is simulated. Submitted events show as "Pending review" on the Profile page, where they can be withdrawn, and never appear in Discover.
 - Notifications are fixed examples.
 - English only.
+- Posts can't be edited after submitting. To fix a mistake, withdraw the post from Profile and post it again.
+- There is no keyword search. Events are found through Discover's filters.
 
 ## Who built what
 
