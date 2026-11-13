@@ -356,6 +356,88 @@ input, select {
     margin-top: 12px;
 }
 
+.search-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 14px;
+    margin-top: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--muted);
+}
+
+.search-field:focus-within {
+    border-color: var(--accent);
+}
+
+.search-field input {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+.search-field input::placeholder {
+    color: var(--muted);
+}
+
+.search-clear {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.filter-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.chip-removable {
+    border: 0;
+    cursor: pointer;
+}
+
+.chip-removable span {
+    margin-left: 4px;
+    font-size: 16px;
+    line-height: 0;
+}
+
+.discover-list {
+    margin-top: 16px;
+}
+
+.empty-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .chips {
     display: flex;
     flex-wrap: wrap;
