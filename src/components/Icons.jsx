@@ -24,6 +24,12 @@ export const SlidersIcon = (p) => (
     <circle cx="10" cy="17" r="2" />
   </svg>
 )
+export const SearchIcon = (p) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...base} {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m16 16 4 4" />
+  </svg>
+)
 export const ChevronLeftIcon = (p) => (
   <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...p}>
     <path d="M15 18l-6-6 6-6" />
