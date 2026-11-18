@@ -11,6 +11,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import Screen from '../components/Screen.jsx'
 import { useApp } from '../state/AppContext.jsx'
+
 export default function SentForReview() {
     const navigate = useNavigate()
     const { id } = useParams()
@@ -20,6 +21,7 @@ export default function SentForReview() {
 
     const formatDate = (value) => {
         if (!value) return ''
+
         return new Date(`${value}T12:00:00`).toLocaleDateString('en-US', {
             weekday: 'short',
             month: 'short',
@@ -29,6 +31,7 @@ export default function SentForReview() {
 
     const formatTime = (value) => {
         if (!value) return ''
+
         return new Date(`2000-01-01T${value}:00`).toLocaleTimeString('en-US', {
             hour: 'numeric',
             minute: '2-digit',
@@ -52,6 +55,7 @@ export default function SentForReview() {
                     >
                         Post another event
                     </button>
+
                     <button
                         type="button"
                         className="btn-primary"
@@ -78,15 +82,24 @@ export default function SentForReview() {
                     <h2 className="event-title">{event.title}</h2>
 
                     {event.days?.length > 0 ? (
-                        event.days.map((day, index) => (
-                            <p className="muted small" key={`${day.date}-${index}`}>
-                                {event.days.length > 1 && `Day ${index + 1}: `}
-                                {formatDate(day.date)}
-                                {' · '}
-                                {formatTime(day.startTime)} – {formatTime(day.endTime)}
-                                {day.endTime < day.startTime && ' (ends the following day)'}
-                            </p>
-                        ))
+                        <div className="sent-event-days">
+                            {event.days.map((day, index) => (
+                                <div
+                                    className="sent-event-day"
+                                    key={`${day.date}-${index}`}
+                                >
+                                    <p className="muted small">
+                                        {event.days.length > 1 && (
+                                            <strong>Day {index + 1}: </strong>
+                                        )}
+                                        {formatDate(day.date)}
+                                        {' · '}
+                                        {formatTime(day.startTime)} – {formatTime(day.endTime)}
+                                        {day.endTime < day.startTime && ' (ends the following day)'}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     ) : (
                         <p className="muted small">
                             {formatDate(event.date)}
@@ -95,36 +108,61 @@ export default function SentForReview() {
                     )}
 
                     {event.location && (
-                        <p className="muted small">{event.location}</p>
+                        <p className="muted small">
+                            {event.location}
+                        </p>
                     )}
 
                     {event.moreInfo && (
-                        <p className="muted small">{event.moreInfo}</p>
+                        <p className="muted small">
+                            {event.moreInfo}
+                        </p>
                     )}
 
                     <div className="chips">
-                        <span className="chip">{event.campus}</span>
-                        <span className="chip">{event.category}</span>
+                        {event.campus && (
+                            <span className="chip">
+                                {event.campus}
+                            </span>
+                        )}
+
+                        {event.category && (
+                            <span className="chip">
+                                {event.category}
+                            </span>
+                        )}
+
                         <span className="chip">
-                            {event.audience === 'club' ? 'Club members only' : 'All students'}
+                            {event.audience === 'club'
+                                ? 'Club members only'
+                                : 'All students'}
                         </span>
-                        {event.freeFood && <span className="chip">Free food</span>}
+
+                        {event.freeFood && (
+                            <span className="chip">
+                                Free food
+                            </span>
+                        )}
                     </div>
                 </article>
             ) : (
                 <div className="card summary">
-                    <p className="event-title">No event found</p>
+                    <p className="event-title">
+                        No event found
+                    </p>
                     <p className="muted small">
                         This event may no longer be available.
                     </p>
                 </div>
             )}
 
-            <div className="callout sent-callout">
-                {event?.audience === 'club'
-                    ? 'Once approved, your event will show up in Discover for all club members browsing City Campus or Academic events.'
-                    : 'Once approved, your event will show up in Discover for any student browsing City Campus or Academic events.'}
-            </div>
+            {event && (
+                <div className="callout sent-callout">
+                    {event.audience === 'club'
+                        ? 'Once approved, your event will show up in Discover for all club members browsing City Campus or Academic events.'
+                        : 'Once approved, your event will show up in Discover for any student browsing City Campus or Academic events.'}
+                </div>
+            )}
         </Screen>
     )
 }
