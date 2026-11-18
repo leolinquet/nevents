@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Author: Patrick Gurney
  * Date: October 14, 2026
  * Description: Allows students to create and submit events for review.
@@ -30,9 +30,23 @@ const campusNames = {
     other: 'Other',
 }
 
+// Convert each event session into actual timestamps.
+// An end time earlier than the start time means the following day.
+const getSessionTimes = (day) => {
+    const start = new Date(`${day.date}T${day.startTime}:00`)
+    const end = new Date(`${day.date}T${day.endTime}:00`)
+
+    if (end < start) {
+        end.setDate(end.getDate() + 1)
+    }
+
+    return { start, end }
+}
+
 export default function PostEvent() {
     const navigate = useNavigate()
     const { submitPost } = useApp()
+
     const [form, setForm] = useState({
         title: '',
         campus: '',
@@ -66,6 +80,7 @@ export default function PostEvent() {
             ...current,
             days: [...current.days, newDay()],
         }))
+        setError('')
     }
 
     const removeDay = (index) => {
@@ -97,9 +112,34 @@ export default function PostEvent() {
             return
         }
 
-        for (let i = 1; i < form.days.length; i++) {
-            if (form.days[i].date < form.days[i - 1].date) {
+        const sessions = form.days.map(getSessionTimes)
+
+        if (
+            sessions.some(
+                ({ start, end }) =>
+                    Number.isNaN(start.getTime()) ||
+                    Number.isNaN(end.getTime())
+            )
+        ) {
+            setError('Enter valid dates and times for every event day.')
+            return
+        }
+
+        // Validate chronological order and overlapping sessions.
+        for (let i = 1; i < sessions.length; i++) {
+            const previous = sessions[i - 1]
+            const current = sessions[i]
+
+            if (current.start < previous.start) {
                 setError('Schedule days must be in chronological order.')
+                return
+            }
+
+            if (current.start < previous.end) {
+                setError(
+                    `Day ${i + 1} overlaps with Day ${i}. ` +
+                    'Adjust the dates or times so event sessions do not overlap.'
+                )
                 return
             }
         }
@@ -123,6 +163,22 @@ export default function PostEvent() {
             activeTab="post"
             footer={
                 <>
+                    {error && (
+                        <div
+                            className="submission-error"
+                            role="alert"
+                            aria-live="assertive"
+                        >
+                            <span
+                                className="submission-error-icon"
+                                aria-hidden="true"
+                            >
+                                ⚠
+                            </span>
+                            <span>{error}</span>
+                        </div>
+                    )}
+
                     <button
                         type="submit"
                         form="post-event-form"
@@ -130,6 +186,7 @@ export default function PostEvent() {
                     >
                         Submit for review
                     </button>
+
                     <p className="muted tiny center">
                         Student Involvement approves posts before they go live.
                     </p>
@@ -140,7 +197,9 @@ export default function PostEvent() {
                 <h1 className="display">Post an event</h1>
                 <p className="muted">
                     Posting as Husker Coding Club
-                    <span className="badge badge-ok">Verified officer</span>
+                    <span className="badge badge-ok">
+                        Verified officer
+                    </span>
                 </p>
             </header>
 
@@ -155,7 +214,9 @@ export default function PostEvent() {
                     <input
                         type="text"
                         value={form.title}
-                        onChange={(e) => updateField('title', e.target.value)}
+                        onChange={(e) =>
+                            updateField('title', e.target.value)
+                        }
                         placeholder="Enter an event name"
                         required
                     />
@@ -165,7 +226,9 @@ export default function PostEvent() {
                     <span>Category</span>
                     <select
                         value={form.category}
-                        onChange={(e) => updateField('category', e.target.value)}
+                        onChange={(e) =>
+                            updateField('category', e.target.value)
+                        }
                         required
                     >
                         <option value="">Select a category</option>
@@ -238,7 +301,9 @@ export default function PostEvent() {
                         <input
                             type="text"
                             value={form.location}
-                            onChange={(e) => updateField('location', e.target.value)}
+                            onChange={(e) =>
+                                updateField('location', e.target.value)
+                            }
                             placeholder={
                                 form.campus === 'other'
                                     ? 'Enter your event address'
@@ -253,7 +318,9 @@ export default function PostEvent() {
                     <span>More info (optional)</span>
                     <textarea
                         value={form.moreInfo}
-                        onChange={(e) => updateField('moreInfo', e.target.value)}
+                        onChange={(e) =>
+                            updateField('moreInfo', e.target.value)
+                        }
                         placeholder="Add any other event details"
                         rows={3}
                     />
@@ -261,87 +328,119 @@ export default function PostEvent() {
 
                 <h2 className="section-label">Event schedule</h2>
 
-                {form.days.map((day, index) => (
-                    <section
-                        className="card"
-                        key={index}
-                        style={{ padding: 14 }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: 12,
-                            }}
+                {form.days.map((day, index) => {
+                    const endsNextDay =
+                        day.startTime &&
+                        day.endTime &&
+                        day.endTime < day.startTime
+
+                    return (
+                        <section
+                            className="card"
+                            key={index}
+                            style={{ padding: 14 }}
                         >
-                            <strong>Day {index + 1}</strong>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    marginBottom: 12,
+                                }}
+                            >
+                                <strong>Day {index + 1}</strong>
 
-                            {form.days.length > 1 && (
-                                <button
-                                    type="button"
-                                    className="link-btn"
-                                    onClick={() => removeDay(index)}
-                                >
-                                    Remove
-                                </button>
-                            )}
-                        </div>
-
-                        <div className="form">
-                            <label className="field">
-                                <span>Date</span>
-                                <input
-                                    type="date"
-                                    value={day.date}
-                                    onChange={(e) =>
-                                        updateDay(index, 'date', e.target.value)
-                                    }
-                                    required
-                                />
-                            </label>
-
-                            <div className="field-row">
-                                <label className="field">
-                                    <span>Start time</span>
-                                    <input
-                                        type="time"
-                                        value={day.startTime}
-                                        onChange={(e) =>
-                                            updateDay(index, 'startTime', e.target.value)
-                                        }
-                                        required
-                                    />
-                                </label>
-
-                                <label className="field">
-                                    <span>End time</span>
-                                    <input
-                                        type="time"
-                                        value={day.endTime}
-                                        onChange={(e) =>
-                                            updateDay(index, 'endTime', e.target.value)
-                                        }
-                                        required
-                                    />
-                                </label>
+                                {form.days.length > 1 && (
+                                    <button
+                                        type="button"
+                                        className="link-btn"
+                                        onClick={() => removeDay(index)}
+                                    >
+                                        Remove
+                                    </button>
+                                )}
                             </div>
 
-                            {day.startTime &&
-                                day.endTime &&
-                                day.endTime < day.startTime && (
-                                    <p className="muted small">
-                                        Ends the following day.
-                                    </p>
+                            <div className="form">
+                                <label className="field">
+                                    <span>Date</span>
+                                    <input
+                                        type="date"
+                                        value={day.date}
+                                        onChange={(e) =>
+                                            updateDay(
+                                                index,
+                                                'date',
+                                                e.target.value
+                                            )
+                                        }
+                                        required
+                                    />
+                                </label>
+
+                                <div className="field-row">
+                                    <label className="field">
+                                        <span>Start time</span>
+                                        <input
+                                            type="time"
+                                            value={day.startTime}
+                                            onChange={(e) =>
+                                                updateDay(
+                                                    index,
+                                                    'startTime',
+                                                    e.target.value
+                                                )
+                                            }
+                                            required
+                                        />
+                                    </label>
+
+                                    <label className="field">
+                                        <span>End time</span>
+                                        <input
+                                            type="time"
+                                            value={day.endTime}
+                                            onChange={(e) =>
+                                                updateDay(
+                                                    index,
+                                                    'endTime',
+                                                    e.target.value
+                                                )
+                                            }
+                                            required
+                                        />
+                                    </label>
+                                </div>
+
+                                {endsNextDay && (
+                                    <div
+                                        className="overnight-notice"
+                                        role="status"
+                                        aria-live="polite"
+                                    >
+                                        <span
+                                            className="overnight-notice-icon"
+                                            aria-hidden="true"
+                                        >
+                                            ⓘ
+                                        </span>
+                                        <span>
+                                            This event ends the following day.
+                                        </span>
+                                    </div>
                                 )}
-                        </div>
-                    </section>
-                ))}
+                            </div>
+                        </section>
+                    )
+                })}
 
                 <button
                     type="button"
                     className="btn-outline"
-                    style={{ justifyContent: 'center', width: '100%' }}
+                    style={{
+                        justifyContent: 'center',
+                        width: '100%',
+                    }}
                     onClick={addDay}
                 >
                     + Add another day
@@ -355,7 +454,9 @@ export default function PostEvent() {
                             type="button"
                             className={form.audience === 'all' ? 'on' : ''}
                             aria-pressed={form.audience === 'all'}
-                            onClick={() => updateField('audience', 'all')}
+                            onClick={() =>
+                                updateField('audience', 'all')
+                            }
                         >
                             All students
                         </button>
@@ -364,7 +465,9 @@ export default function PostEvent() {
                             type="button"
                             className={form.audience === 'club' ? 'on' : ''}
                             aria-pressed={form.audience === 'club'}
-                            onClick={() => updateField('audience', 'club')}
+                            onClick={() =>
+                                updateField('audience', 'club')
+                            }
                         >
                             Club members only
                         </button>
@@ -387,12 +490,6 @@ export default function PostEvent() {
                     />
                     <span>Free food provided</span>
                 </label>
-
-                {error && (
-                    <p className="error" role="alert">
-                        {error}
-                    </p>
-                )}
             </form>
         </Screen>
     )
